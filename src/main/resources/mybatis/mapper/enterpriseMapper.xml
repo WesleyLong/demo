@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.EnterpriseMapper">
+    <insert id="insert" parameterType="com.example.demo.entity.Enterprise">
+        insert into enterprise (id, name, url)
+        values (#{id}, #{name}, #{url})
+    </insert>
+    <select id="getById" parameterType="java.lang.Integer" resultType="com.example.demo.entity.Enterprise">
+        select id, name, url
+        from Enterprise
+        where id = #{id}
+    </select>
+    <update id="update" parameterType="com.example.demo.entity.Enterprise">
+        update enterprise
+        set name = #{name},
+            url  = #{url}
+        where id = #{id}
+    </update>
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete
+        from enterprise
+        where id = #{id}
+    </delete>
+
+    <resultMap id="all" type="com.example.demo.entity.Enterprise">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="url" property="url"/>
+    </resultMap>
+
+    <select id="getAll" resultMap="all">
+        SELECT * FROM enterprise
+    </select>
+
+    <select id="getOnePageEnterpriseData" resultType="com.example.demo.entity.Enterprise">
+        SELECT * FROM Enterprise
+        <where>
+            <if test="name!= null and name!=''">
+                AND name LIKE '%' #{name} '%'
+            </if>
+        </where>
+    </select>
+</mapper>

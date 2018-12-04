@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.ProductMapper">
+    <insert id="insert" parameterType="com.example.demo.entity.Product">
+        insert into product(id,czr,zcdz,scdw,scdz,cpmc,ggxh,aqbzbh,yxq,bzhyq,syfw,bz,abzt)
+            values(#{id},#{czr},#{zcdz},#{scdw},#{scdz},#{cpmc},#{ggxh},#{aqbzbh},#{yxq},#{bzhyq},#{syfw},#{bz},#{abzt})
+    </insert>
+
+    <!--分页查询-->
+    <select id="getOnePageData" resultType="com.example.demo.entity.Product">
+        SELECT * FROM product
+        <where>
+            <if test="czr!= null and czr!=''">
+                AND czr LIKE  '%' #{czr} '%'
+            </if>
+        </where>
+    </select>
+</mapper>

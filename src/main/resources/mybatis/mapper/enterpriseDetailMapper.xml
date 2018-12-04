@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.EnterpriseDetailMapper">
+    <insert id="insert" parameterType="com.example.demo.entity.EnterpriseDetail">
+        insert into enterprise_detail(id,name,adress,zipcode,contact,phone,pic) values(#{id},#{name},#{adress},#{zipcode},#{contact},#{phone},#{pic})
+    </insert>
+</mapper>
