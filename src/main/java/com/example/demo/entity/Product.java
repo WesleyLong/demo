@@ -3,7 +3,7 @@ package com.example.demo.entity;
 
 public class Product {
 
-  private long id;
+  private String id;
   private String czr;
   private String zcdz;
   private String scdw;
@@ -18,11 +18,11 @@ public class Product {
   private String abzt;
 
 
-  public long getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(long id) {
+  public void setId(String id) {
     this.id = id;
   }
 

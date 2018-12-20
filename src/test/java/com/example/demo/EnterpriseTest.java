@@ -30,8 +30,10 @@ public class EnterpriseTest {
     @Test
 
     public void testInsert() throws Exception {
-//        String url = "http://www.aqbz.org/Home/Search/All_QY.aspx?t1=search&t2=6&qname=&cname=&sheng=all&type=1";
-        String url = "http://www.aqbz.org/Home/Search/All_QY.aspx?t1=search&t2=6&qname=&cname=&sheng=all&type=2";
+        String ma_nrl = "http://www.aqbz.org/Home/Search/All_QY.aspx?t1=search&t2=6&qname=&cname=&sheng=all&type=1";//7965
+        String ka_url = "http://www.aqbz.org/Home/Search/All_QY.aspx?t1=search&t2=6&qname=&cname=&sheng=all&type=2";//919
+        String url = ma_nrl;
+        int i = 0;
         while (true) {
             Document document = null;
             try {
@@ -46,14 +48,19 @@ public class EnterpriseTest {
             Enterprise enterprise = new Enterprise();
 
             for (Element e : enterpriseList) {
+                int id = Integer.parseInt(e.attr("href").split("mid=")[1]);
+                enterprise.setId(id);
+//                System.out.println(id);
                 enterprise.setName(e.text());
                 enterprise.setUrl(e.attr("href"));
-//            System.out.println("link : " + e.attr("href"));
-//            System.out.println("text : " + e.text());
+//                System.out.println("link : " + e.attr("href"));
+//                System.out.println("text : " + e.text());
                 try {
                     enterpriseMapper.insert(enterprise);
+                    i++;
                 } catch (Exception e1) {
-                    System.out.println("数据插入失败");
+//                    System.out.println(e1.getMessage());
+//                    System.out.println("数据插入失败");
                     continue;
                 }
             }
@@ -63,13 +70,15 @@ public class EnterpriseTest {
 //            System.out.println(nextLink);
 
             for (Element link : nextLink) {
-                System.out.println("link : " + link.attr("href"));
+//                System.out.println("link : " + link.attr("href"));
                 url = "http://www.aqbz.org" + link.attr("href");
 //                System.out.println("" == link.attr("href"));
 //                System.out.println("text : " + link.text());
             }
             if ("http://www.aqbz.org".equals(url)) {
-                break;
+                System.out.println(i + "条数据插入成功");
+                if (i == 7965) break;
+                else url = ma_nrl;
             }
         }
     }

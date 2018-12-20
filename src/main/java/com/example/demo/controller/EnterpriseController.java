@@ -28,8 +28,8 @@ public class EnterpriseController {
 
     @GetMapping(value = "/page")
     public String page(@RequestParam(value = "pageno", required = false,defaultValue="1") Integer pageno, @RequestParam(value = "name", required = false) String name, Map<String, Object> map) {
-        System.out.println(pageno);
-        System.out.println(name);
+//        System.out.println(pageno);
+//        System.out.println(name);
         PageInfo<Enterprise> pageInfo = enterpriseService.getOnePageEnterpriseData(pageno, 20, name);
         map.put("name", name);
         map.put("pageInfo", pageInfo);

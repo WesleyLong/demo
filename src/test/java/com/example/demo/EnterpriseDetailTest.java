@@ -28,9 +28,10 @@ public class EnterpriseDetailTest {
     private EnterpriseMapper enterpriseMapper;
 
     @Test
-    public void testInsert() throws Exception {
+    public void testInsert(){
         String url;
         ArrayList<Enterprise> enterpriseArrayList = this.enterpriseMapper.getAll();
+        int n=0;
         EnterpriseDetail enterpriseDetail = new EnterpriseDetail();
         for (int i = 0; i < enterpriseArrayList.size(); i++) {
             url = "http://www.aqbz.org/Home/Search/" + enterpriseArrayList.get(i).getUrl();
@@ -41,6 +42,7 @@ public class EnterpriseDetailTest {
                 System.out.println("获取页面失败");
                 continue;
             }
+            enterpriseDetail.setId(enterpriseArrayList.get(i).getId());
             Elements name = document.select("#ContentPlaceHolder1_ContentPlaceHolder1_lbName");
             enterpriseDetail.setName(name.text());
             Elements adress = document.select("#ContentPlaceHolder1_ContentPlaceHolder1_lbAddress");
@@ -56,9 +58,11 @@ public class EnterpriseDetailTest {
             try {
                 enterpriseDetailMapper.insert(enterpriseDetail);
             } catch (Exception e) {
-                System.out.println("数据插入失败");
+                System.out.println("数据插入失败"+n);
+                n++;
                 continue;
             }
         }
+        System.out.println(n+"条数据插入失败");
     }
 }

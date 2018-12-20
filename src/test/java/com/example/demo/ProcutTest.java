@@ -33,6 +33,7 @@ public class ProcutTest {
         String url;
         Product p = new Product();
         ArrayList<Enterprise> enterpriseArrayList = this.enterpriseMapper.getAll();
+        int n=0;
         for (int i = 0; i < enterpriseArrayList.size(); i++) {
             url = "http://www.aqbz.org/Home/Search/" + enterpriseArrayList.get(i).getUrl();
             System.out.println(url);
@@ -47,6 +48,8 @@ public class ProcutTest {
 
             for (Element e : productList) {
                 String href = "http://www.aqbz.org/Home/Search/" + e.attr("href");
+                String id = href.split("id=")[1];
+//                System.out.println(id);
                 Document d = null;
                 try {
                     d = Jsoup.connect(href).get();
@@ -55,6 +58,7 @@ public class ProcutTest {
 //                    e1.printStackTrace();
                     continue;
                 }
+                p.setId(id);
                 Elements czr = d.select("#ContentPlaceHolder1_ContentPlaceHolder1_lbczr");
                 p.setCzr(czr.text());
                 Elements zcdz = d.select("#ContentPlaceHolder1_ContentPlaceHolder1_lbzcdz");
@@ -82,7 +86,9 @@ public class ProcutTest {
                 try {
                     productMapper.insert(p);
                 } catch (Exception e1) {
-                    System.out.println("数据插入失败");
+                    System.out.println(n+"条数据插入失败");
+                    e1.printStackTrace();
+                    n++;
                     continue;
                 }
 
@@ -90,8 +96,9 @@ public class ProcutTest {
 //            System.out.println("link : " + e.attr("href"));
 //            System.out.println("text : " + e.text());
             }
-            System.out.println(i);
+//            System.out.println(i);
         }
+//        System.out.println(n+"条数据插入失败");
     }
     @Test
     public void test(){
