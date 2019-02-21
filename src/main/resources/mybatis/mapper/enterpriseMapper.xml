@@ -36,7 +36,7 @@
     </select>
 
     <select id="getOnePageEnterpriseData" resultType="com.example.demo.entity.Enterprise">
-        SELECT * FROM Enterprise
+        SELECT * FROM Enterprise limit #{curPage} , #{size}
         <where>
             <if test="name!= null and name!=''">
                 AND name LIKE '%' #{name} '%'

@@ -14,7 +14,7 @@ import javax.xml.ws.Action;
 import java.util.ArrayList;
 import java.util.Map;
 
-@Controller
+//@Controller
 public class EnterpriseController {
     @Autowired
     EnterpriseService enterpriseService;

@@ -13,14 +13,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.ArrayList;
 import java.util.Map;
 
-@Controller
+//@Controller
 public class ProductController {
     @Autowired
     ProductService productService;
 
 
     @GetMapping(value = "/product")
-    public String page(@RequestParam(value = "pageno", required = false,defaultValue="1") Integer pageno, @RequestParam(value = "czr", required = false) String czr, Map<String, Object> map) {
+    public String page(
+            @RequestParam(value = "pageno", required = false,defaultValue="1") Integer pageno,
+            @RequestParam(value = "czr", required = false) String czr,
+            Map<String, Object> map
+    ) {
         PageInfo<Product> pageInfo = productService.getOnePageData(pageno, 5, czr);
         map.put("czr", czr);
         map.put("pageInfo", pageInfo);
